@@ -1,221 +1,180 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gaming Dashboard</title>
 
 <style>
+
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
 }
 
 body{
-    background:#050505;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    color:white;
+background:#050505;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:40px;
+color:white;
 }
 
-.container{
-    width:900px;
-    background:#151821;
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:30px;
-    display:flex;
-    gap:25px;
-
-    box-shadow:
-    0 0 15px rgba(255,0,0,.2),
-    0 0 30px rgba(255,0,0,.08);
-}
-
-.left{
-    flex:1;
-}
-
-.right{
-    width:280px;
-    border-left:1px solid rgba(255,255,255,.08);
-    padding-left:20px;
-}
-
-.logo{
-    width:90px;
-    height:90px;
-    border-radius:50%;
-    background:#222;
-    margin:auto;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-size:30px;
-}
-
-.status{
-    text-align:center;
-    color:#00ff7f;
-    margin:15px 0;
-}
-
-h1{
-    text-align:center;
-    margin-bottom:25px;
-    font-size:28px;
+.wrapper{
+width:1100px;
+max-width:100%;
 }
 
 .notice{
-    background:#331212;
-    border:1px solid #ff4444;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:20px;
+background:rgba(255,0,0,.15);
+border:1px solid rgba(255,0,0,.4);
+color:#ff7b7b;
+padding:15px;
+text-align:center;
+border-radius:12px;
+margin-bottom:20px;
+box-shadow:0 0 20px rgba(255,0,0,.2);
+}
+
+.panel{
+background:rgba(20,20,25,.95);
+border:1px solid rgba(255,255,255,.1);
+border-radius:20px;
+padding:30px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:25px;
+box-shadow:
+0 0 50px rgba(255,0,0,.1),
+inset 0 0 20px rgba(255,255,255,.03);
+}
+
+.card{
+background:#16161d;
+border-radius:15px;
+padding:25px;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+width:90px;
+height:90px;
+border-radius:50%;
+background:linear-gradient(45deg,#ff0000,#ff8800);
+margin:auto;
+box-shadow:0 0 25px red;
+}
+
+h1{
+text-align:center;
+margin:20px 0;
+font-size:28px;
 }
 
 input{
-    width:100%;
-    padding:14px;
-    background:#0f1118;
-    border:1px solid #333;
-    border-radius:10px;
-    color:white;
-    margin-bottom:15px;
+width:100%;
+padding:14px;
+background:#0f0f14;
+border:1px solid #333;
+color:white;
+border-radius:10px;
+margin-bottom:15px;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    border:none;
-    border-radius:10px;
-    cursor:pointer;
-    font-weight:bold;
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+margin-bottom:10px;
 }
 
 .primary{
-    background:linear-gradient(90deg,#ff4747,#ff6b6b);
-    color:white;
-}
-
-.primary:hover{
-    transform:scale(1.02);
-}
-
-.row{
-    display:flex;
-    gap:10px;
-    margin-top:10px;
+background:linear-gradient(90deg,#ff3333,#ff6666);
+color:white;
 }
 
 .secondary{
-    background:#232836;
-    color:white;
+background:#24242d;
+color:white;
 }
 
-.promo{
-    margin-top:20px;
-    padding:15px;
-    border-radius:10px;
-    background:#1d1f29;
-    border:1px solid rgba(255,255,255,.05);
+.claims{
+min-height:350px;
 }
 
-.recent{
-    margin-top:20px;
+.claims h2{
+margin-bottom:20px;
+color:#ff7777;
 }
 
-.claim{
-    background:#202530;
-    padding:12px;
-    border-radius:10px;
-    margin-top:10px;
+.empty{
+opacity:.6;
+text-align:center;
+margin-top:120px;
 }
 
 @media(max-width:900px){
-    .container{
-        width:95%;
-        flex-direction:column;
-    }
 
-    .right{
-        width:100%;
-        border-left:none;
-        padding-left:0;
-    }
+.panel{
+grid-template-columns:1fr;
 }
+
+}
+
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<div class="wrapper">
 
-    <div class="left">
+<div class="notice">
+NOTICE : BUY NOW 50% DISCOUNT LIFETIME ACCESS
+</div>
 
-        <div class="logo">🎮</div>
+<div class="panel">
 
-        <div class="status">
-            ● SYSTEM ONLINE
-        </div>
+<div class="card">
 
-        <h1>Gaming Dashboard</h1>
+<div class="logo"></div>
 
-        <div class="notice">
-            Welcome! Enter your Gaming UID below.
-        </div>
+<h1>EX CHEATS OFFICIAL</h1>
 
-        <input type="text" id="uid" placeholder="Enter Gaming UID">
+<input type="text" placeholder="Gaming UID">
 
-        <button class="primary" onclick="submitUID()">
-            Submit UID
-        </button>
+<button class="primary">
+CLAIM FREE TRIAL
+</button>
 
-        <div class="row">
-            <button class="secondary">Discord</button>
-            <button class="secondary">Support</button>
-        </div>
+<button class="secondary">
+WHATSAPP SUPPORT
+</button>
 
-        <div class="promo">
-            Premium Access Available
-        </div>
-
-    </div>
-
-    <div class="right">
-
-        <h3>Recent Activity</h3>
-
-        <div class="recent" id="recent">
-            No activity yet.
-        </div>
-
-    </div>
+<button class="secondary">
+DISCORD SERVER
+</button>
 
 </div>
 
-<script>
-function submitUID(){
+<div class="card claims">
 
-    let uid = document.getElementById("uid").value;
+<h2>RECENT CLAIMS</h2>
 
-    if(uid.trim()===""){
-        alert("Please enter UID");
-        return;
-    }
+<div class="empty">
+No claims recorded yet.
+</div>
 
-    let recent = document.getElementById("recent");
+</div>
 
-    recent.innerHTML =
-    `<div class="claim">
-        UID Submitted: ${uid}
-    </div>`;
-}
-</script>
+</div>
+
+</div>
 
 </body>
 </html>
