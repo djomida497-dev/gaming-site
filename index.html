@@ -6,22 +6,21 @@
 <title>Gaming Dashboard</title>
 
 <style>
-
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial,sans-serif;
+font-family:Arial;
 }
 
 body{
 background:#050505;
-min-height:100vh;
+color:white;
 display:flex;
 justify-content:center;
 align-items:center;
-padding:40px;
-color:white;
+min-height:100vh;
+padding:30px;
 }
 
 .wrapper{
@@ -30,151 +29,199 @@ max-width:100%;
 }
 
 .notice{
-background:rgba(255,0,0,.15);
-border:1px solid rgba(255,0,0,.4);
-color:#ff7b7b;
-padding:15px;
+background:linear-gradient(90deg,#2b0000,#ff0000);
+padding:14px;
 text-align:center;
-border-radius:12px;
-margin-bottom:20px;
-box-shadow:0 0 20px rgba(255,0,0,.2);
+font-weight:bold;
+border-radius:10px;
+box-shadow:0 0 20px red;
+margin-bottom:15px;
 }
 
 .panel{
-background:rgba(20,20,25,.95);
-border:1px solid rgba(255,255,255,.1);
-border-radius:20px;
-padding:30px;
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:25px;
-box-shadow:
-0 0 50px rgba(255,0,0,.1),
-inset 0 0 20px rgba(255,255,255,.03);
+gap:20px;
+background:rgba(20,20,25,0.9);
+padding:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 0 40px rgba(255,0,0,0.15);
 }
 
 .card{
-background:#16161d;
+background:rgba(255,255,255,0.05);
+padding:20px;
 border-radius:15px;
-padding:25px;
-border:1px solid rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
-width:90px;
-height:90px;
+width:80px;
+height:80px;
 border-radius:50%;
-background:linear-gradient(45deg,#ff0000,#ff8800);
 margin:auto;
-box-shadow:0 0 25px red;
+background:linear-gradient(45deg,#ff0000,#ff7300);
+box-shadow:0 0 20px red;
 }
 
-h1{
+h2{
 text-align:center;
-margin:20px 0;
-font-size:28px;
+margin:15px 0;
 }
 
 input{
 width:100%;
-padding:14px;
-background:#0f0f14;
-border:1px solid #333;
-color:white;
+padding:12px;
+border:none;
 border-radius:10px;
-margin-bottom:15px;
+background:#111;
+color:white;
+margin-bottom:10px;
 }
 
 button{
 width:100%;
-padding:14px;
+padding:12px;
 border:none;
 border-radius:10px;
 cursor:pointer;
+margin-top:8px;
 font-weight:bold;
-margin-bottom:10px;
 }
 
-.primary{
-background:linear-gradient(90deg,#ff3333,#ff6666);
+.claim{
+background:linear-gradient(90deg,#ff0000,#ff5c5c);
 color:white;
 }
 
-.secondary{
-background:#24242d;
+.gray{
+background:#222;
 color:white;
 }
 
-.claims{
-min-height:350px;
+.download{
+background:#ff3b3b;
 }
 
-.claims h2{
-margin-bottom:20px;
-color:#ff7777;
+.list{
+margin-top:15px;
+max-height:300px;
+overflow:auto;
+}
+
+.item{
+background:#111;
+padding:10px;
+border-radius:8px;
+margin-top:5px;
+border-left:3px solid red;
+font-size:14px;
 }
 
 .empty{
-opacity:.6;
+opacity:0.6;
 text-align:center;
-margin-top:120px;
+margin-top:40px;
 }
 
 @media(max-width:900px){
-
-.panel{
-grid-template-columns:1fr;
+.panel{grid-template-columns:1fr;}
 }
-
-}
-
 </style>
 </head>
+
 <body>
 
 <div class="wrapper">
 
 <div class="notice">
-NOTICE : BUY NOW 50% DISCOUNT LIFETIME ACCESS
+NOTICE: BUY NOW 50% DISCOUNT LIFETIME ACCESS
 </div>
 
 <div class="panel">
 
+<!-- LEFT -->
 <div class="card">
 
 <div class="logo"></div>
 
-<h1>EX CHEATS OFFICIAL</h1>
+<h2>EX CHEATS DASHBOARD</h2>
 
-<input type="text" placeholder="Gaming UID">
+<input id="uid" placeholder="Gaming UID">
 
-<button class="primary">
+<button class="claim" onclick="claim()">
 CLAIM FREE TRIAL
 </button>
 
-<button class="secondary">
+<button class="gray">
 WHATSAPP SUPPORT
 </button>
 
-<button class="secondary">
+<button class="gray">
 DISCORD SERVER
+</button>
+
+<button class="download">
+DOWNLOAD BYPASS
+</button>
+
+<button class="gray">
+FREE BYPASS
 </button>
 
 </div>
 
-<div class="card claims">
+<!-- RIGHT -->
+<div class="card">
 
 <h2>RECENT CLAIMS</h2>
 
-<div class="empty">
-No claims recorded yet.
-</div>
+<div id="list" class="list"></div>
+
+<div id="empty" class="empty">No claims recorded yet.</div>
 
 </div>
 
 </div>
-
 </div>
+
+<script>
+let data = JSON.parse(localStorage.getItem("claims") || "[]");
+
+function render(){
+let list = document.getElementById("list");
+let empty = document.getElementById("empty");
+
+list.innerHTML = "";
+
+if(data.length === 0){
+empty.style.display = "block";
+}else{
+empty.style.display = "none";
+}
+
+data.forEach(item=>{
+let div = document.createElement("div");
+div.className = "item";
+div.innerText = item;
+list.appendChild(div);
+});
+}
+
+function claim(){
+let uid = document.getElementById("uid").value;
+if(!uid) return;
+
+data.unshift(uid);
+localStorage.setItem("claims", JSON.stringify(data));
+
+document.getElementById("uid").value = "";
+render();
+}
+
+render();
+</script>
 
 </body>
 </html>
