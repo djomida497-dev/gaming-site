@@ -3,130 +3,133 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gaming Dashboard</title>
+<title>Gaming Panel</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial;
-}
-
 body{
+margin:0;
+font-family:Arial;
 background:#050505;
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-padding:30px;
 }
 
 .wrapper{
 width:1100px;
-max-width:100%;
+padding:20px;
 }
 
-.notice{
+.topbar{
 background:linear-gradient(90deg,#2b0000,#ff0000);
 padding:14px;
 text-align:center;
 font-weight:bold;
-border-radius:10px;
-box-shadow:0 0 20px red;
+letter-spacing:1px;
+border-radius:8px;
+box-shadow:0 0 25px red;
 margin-bottom:15px;
 }
 
 .panel{
-display:grid;
-grid-template-columns:1fr 1fr;
+display:flex;
 gap:20px;
-background:rgba(20,20,25,0.9);
-padding:25px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.1);
-box-shadow:0 0 40px rgba(255,0,0,0.15);
-}
-
-.card{
-background:rgba(255,255,255,0.05);
+background:rgba(255,255,255,0.03);
+backdrop-filter:blur(10px);
+border:1px solid rgba(255,0,0,0.25);
 padding:20px;
 border-radius:15px;
-border:1px solid rgba(255,255,255,0.08);
+box-shadow:0 0 60px rgba(255,0,0,0.15);
+}
+
+.left,.right{
+flex:1;
+background:rgba(10,10,10,0.7);
+border:1px solid rgba(255,0,0,0.2);
+border-radius:12px;
+padding:20px;
+box-shadow:inset 0 0 20px rgba(255,0,0,0.05);
 }
 
 .logo{
-width:80px;
-height:80px;
-border-radius:50%;
+width:90px;
+height:90px;
 margin:auto;
-background:linear-gradient(45deg,#ff0000,#ff7300);
-box-shadow:0 0 20px red;
+border-radius:50%;
+background:linear-gradient(45deg,#ff0000,#ff6600);
+box-shadow:0 0 25px red;
 }
 
-h2{
+.title{
 text-align:center;
 margin:15px 0;
+font-size:22px;
+font-weight:bold;
+letter-spacing:2px;
 }
 
 input{
 width:100%;
 padding:12px;
-border:none;
-border-radius:10px;
-background:#111;
+background:#0f0f0f;
+border:1px solid #333;
 color:white;
+border-radius:8px;
 margin-bottom:10px;
+outline:none;
 }
 
 button{
 width:100%;
 padding:12px;
 border:none;
-border-radius:10px;
-cursor:pointer;
+border-radius:8px;
 margin-top:8px;
+cursor:pointer;
 font-weight:bold;
+letter-spacing:1px;
+transition:0.2s;
+}
+
+.btn-red{
+background:linear-gradient(90deg,#ff0000,#ff4d4d);
+color:white;
+box-shadow:0 0 15px rgba(255,0,0,0.3);
+}
+
+.btn-red:hover{
+transform:scale(1.02);
+box-shadow:0 0 25px red;
+}
+
+.btn-dark{
+background:#1a1a1a;
+color:white;
+border:1px solid rgba(255,255,255,0.1);
+}
+
+.section-title{
+color:#ff4d4d;
+margin-bottom:10px;
+font-weight:bold;
+letter-spacing:1px;
 }
 
 .claim{
-background:linear-gradient(90deg,#ff0000,#ff5c5c);
-color:white;
-}
-
-.gray{
-background:#222;
-color:white;
-}
-
-.download{
-background:#ff3b3b;
-}
-
-.list{
-margin-top:15px;
-max-height:300px;
-overflow:auto;
-}
-
-.item{
 background:#111;
 padding:10px;
-border-radius:8px;
-margin-top:5px;
+margin-top:8px;
 border-left:3px solid red;
+border-radius:6px;
 font-size:14px;
 }
 
 .empty{
-opacity:0.6;
+opacity:0.5;
 text-align:center;
-margin-top:40px;
-}
-
-@media(max-width:900px){
-.panel{grid-template-columns:1fr;}
+margin-top:50px;
 }
 </style>
 </head>
@@ -135,50 +138,49 @@ margin-top:40px;
 
 <div class="wrapper">
 
-<div class="notice">
-NOTICE: BUY NOW 50% DISCOUNT LIFETIME ACCESS
+<div class="topbar">
+NOTICE : BUY NOW - 50% DISCOUNT LIFETIME ACCESS
 </div>
 
 <div class="panel">
 
 <!-- LEFT -->
-<div class="card">
+<div class="left">
 
 <div class="logo"></div>
 
-<h2>EX CHEATS DASHBOARD</h2>
+<div class="title">EXTERNAL PANEL</div>
 
 <input id="uid" placeholder="Gaming UID">
 
-<button class="claim" onclick="claim()">
+<button class="btn-red" onclick="claim()">
 CLAIM FREE TRIAL
 </button>
 
-<button class="gray">
+<button class="btn-dark">
 WHATSAPP SUPPORT
 </button>
 
-<button class="gray">
+<button class="btn-dark">
 DISCORD SERVER
 </button>
 
-<button class="download">
+<button class="btn-red">
 DOWNLOAD BYPASS
 </button>
 
-<button class="gray">
+<button class="btn-dark">
 FREE BYPASS
 </button>
 
 </div>
 
 <!-- RIGHT -->
-<div class="card">
+<div class="right">
 
-<h2>RECENT CLAIMS</h2>
+<div class="section-title">RECENT CLAIMS</div>
 
-<div id="list" class="list"></div>
-
+<div id="list"></div>
 <div id="empty" class="empty">No claims recorded yet.</div>
 
 </div>
@@ -201,10 +203,10 @@ empty.style.display = "block";
 empty.style.display = "none";
 }
 
-data.forEach(item=>{
+data.forEach(x=>{
 let div = document.createElement("div");
-div.className = "item";
-div.innerText = item;
+div.className="claim";
+div.innerText = x;
 list.appendChild(div);
 });
 }
@@ -216,7 +218,7 @@ if(!uid) return;
 data.unshift(uid);
 localStorage.setItem("claims", JSON.stringify(data));
 
-document.getElementById("uid").value = "";
+document.getElementById("uid").value="";
 render();
 }
 
