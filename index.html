@@ -3,59 +3,88 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gaming Panel</title>
+<title>External Panel</title>
 
 <style>
+
 body{
 margin:0;
-font-family:Arial;
+font-family:Arial, sans-serif;
 background:#050505;
 color:white;
 display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
+overflow:hidden;
+}
+
+/* HUD background lines */
+body::before{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+0deg,
+rgba(255,0,0,0.03),
+rgba(255,0,0,0.03) 1px,
+transparent 1px,
+transparent 4px
+);
+pointer-events:none;
+}
+
+/* glow effect */
+body::after{
+content:"";
+position:absolute;
+width:100%;
+height:100%;
+background:radial-gradient(circle at center, rgba(255,0,0,0.08), transparent 60%);
+pointer-events:none;
 }
 
 .wrapper{
 width:1100px;
-padding:20px;
+z-index:2;
 }
 
-.topbar{
-background:linear-gradient(90deg,#2b0000,#ff0000);
+.notice{
+background:linear-gradient(90deg,#2a0000,#ff0000);
 padding:14px;
 text-align:center;
 font-weight:bold;
-letter-spacing:1px;
-border-radius:8px;
+letter-spacing:2px;
+border-radius:6px;
 box-shadow:0 0 25px red;
 margin-bottom:15px;
+text-transform:uppercase;
 }
 
 .panel{
 display:flex;
 gap:20px;
-background:rgba(255,255,255,0.03);
-backdrop-filter:blur(10px);
+background:rgba(10,10,10,0.75);
 border:1px solid rgba(255,0,0,0.25);
+border-radius:12px;
 padding:20px;
-border-radius:15px;
+backdrop-filter:blur(12px);
 box-shadow:0 0 60px rgba(255,0,0,0.15);
 }
 
 .left,.right{
 flex:1;
-background:rgba(10,10,10,0.7);
+background:rgba(255,255,255,0.03);
 border:1px solid rgba(255,0,0,0.2);
-border-radius:12px;
+border-radius:10px;
 padding:20px;
-box-shadow:inset 0 0 20px rgba(255,0,0,0.05);
+box-shadow:inset 0 0 30px rgba(255,0,0,0.05);
 }
 
 .logo{
-width:90px;
-height:90px;
+width:85px;
+height:85px;
 margin:auto;
 border-radius:50%;
 background:linear-gradient(45deg,#ff0000,#ff6600);
@@ -65,9 +94,10 @@ box-shadow:0 0 25px red;
 .title{
 text-align:center;
 margin:15px 0;
-font-size:22px;
+font-size:20px;
+letter-spacing:3px;
 font-weight:bold;
-letter-spacing:2px;
+color:#ff4d4d;
 }
 
 input{
@@ -76,7 +106,7 @@ padding:12px;
 background:#0f0f0f;
 border:1px solid #333;
 color:white;
-border-radius:8px;
+border-radius:6px;
 margin-bottom:10px;
 outline:none;
 }
@@ -85,52 +115,55 @@ button{
 width:100%;
 padding:12px;
 border:none;
-border-radius:8px;
+border-radius:6px;
 margin-top:8px;
 cursor:pointer;
 font-weight:bold;
 letter-spacing:1px;
 transition:0.2s;
+text-transform:uppercase;
 }
 
-.btn-red{
+.red{
 background:linear-gradient(90deg,#ff0000,#ff4d4d);
 color:white;
 box-shadow:0 0 15px rgba(255,0,0,0.3);
 }
 
-.btn-red:hover{
+.red:hover{
 transform:scale(1.02);
 box-shadow:0 0 25px red;
 }
 
-.btn-dark{
-background:#1a1a1a;
+.dark{
+background:#151515;
 color:white;
-border:1px solid rgba(255,255,255,0.1);
+border:1px solid rgba(255,255,255,0.08);
 }
 
-.section-title{
+.section{
 color:#ff4d4d;
 margin-bottom:10px;
 font-weight:bold;
-letter-spacing:1px;
-}
-
-.claim{
-background:#111;
-padding:10px;
-margin-top:8px;
-border-left:3px solid red;
-border-radius:6px;
+letter-spacing:2px;
 font-size:14px;
 }
 
+.claim{
+background:#0f0f0f;
+padding:10px;
+margin-top:6px;
+border-left:3px solid red;
+border-radius:5px;
+font-size:13px;
+}
+
 .empty{
-opacity:0.5;
+opacity:0.4;
 text-align:center;
 margin-top:50px;
 }
+
 </style>
 </head>
 
@@ -138,7 +171,7 @@ margin-top:50px;
 
 <div class="wrapper">
 
-<div class="topbar">
+<div class="notice">
 NOTICE : BUY NOW - 50% DISCOUNT LIFETIME ACCESS
 </div>
 
@@ -153,32 +186,18 @@ NOTICE : BUY NOW - 50% DISCOUNT LIFETIME ACCESS
 
 <input id="uid" placeholder="Gaming UID">
 
-<button class="btn-red" onclick="claim()">
-CLAIM FREE TRIAL
-</button>
-
-<button class="btn-dark">
-WHATSAPP SUPPORT
-</button>
-
-<button class="btn-dark">
-DISCORD SERVER
-</button>
-
-<button class="btn-red">
-DOWNLOAD BYPASS
-</button>
-
-<button class="btn-dark">
-FREE BYPASS
-</button>
+<button class="red" onclick="claim()">CLAIM FREE TRIAL</button>
+<button class="dark">WHATSAPP SUPPORT</button>
+<button class="dark">DISCORD SERVER</button>
+<button class="red">DOWNLOAD BYPASS</button>
+<button class="dark">FREE BYPASS</button>
 
 </div>
 
 <!-- RIGHT -->
 <div class="right">
 
-<div class="section-title">RECENT CLAIMS</div>
+<div class="section">RECENT CLAIMS</div>
 
 <div id="list"></div>
 <div id="empty" class="empty">No claims recorded yet.</div>
@@ -189,6 +208,7 @@ FREE BYPASS
 </div>
 
 <script>
+
 let data = JSON.parse(localStorage.getItem("claims") || "[]");
 
 function render(){
@@ -198,21 +218,21 @@ let empty = document.getElementById("empty");
 list.innerHTML = "";
 
 if(data.length === 0){
-empty.style.display = "block";
+empty.style.display="block";
 }else{
-empty.style.display = "none";
+empty.style.display="none";
 }
 
-data.forEach(x=>{
-let div = document.createElement("div");
+data.forEach(v=>{
+let div=document.createElement("div");
 div.className="claim";
-div.innerText = x;
+div.innerText=v;
 list.appendChild(div);
 });
 }
 
 function claim(){
-let uid = document.getElementById("uid").value;
+let uid=document.getElementById("uid").value;
 if(!uid) return;
 
 data.unshift(uid);
@@ -223,6 +243,7 @@ render();
 }
 
 render();
+
 </script>
 
 </body>
