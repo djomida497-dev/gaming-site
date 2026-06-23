@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#050505;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+.container{
+    width:900px;
+    background:#151821;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    padding:30px;
+    display:flex;
+    gap:25px;
+
+    box-shadow:
+    0 0 15px rgba(255,0,0,.2),
+    0 0 30px rgba(255,0,0,.08);
+}
+
+.left{
+    flex:1;
+}
+
+.right{
+    width:280px;
+    border-left:1px solid rgba(255,255,255,.08);
+    padding-left:20px;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#222;
+    margin:auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+}
+
+.status{
+    text-align:center;
+    color:#00ff7f;
+    margin:15px 0;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:25px;
+    font-size:28px;
+}
+
+.notice{
+    background:#331212;
+    border:1px solid #ff4444;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    background:#0f1118;
+    border:1px solid #333;
+    border-radius:10px;
+    color:white;
+    margin-bottom:15px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.primary{
+    background:linear-gradient(90deg,#ff4747,#ff6b6b);
+    color:white;
+}
+
+.primary:hover{
+    transform:scale(1.02);
+}
+
+.row{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.secondary{
+    background:#232836;
+    color:white;
+}
+
+.promo{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#1d1f29;
+    border:1px solid rgba(255,255,255,.05);
+}
+
+.recent{
+    margin-top:20px;
+}
+
+.claim{
+    background:#202530;
+    padding:12px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+@media(max-width:900px){
+    .container{
+        width:95%;
+        flex-direction:column;
+    }
+
+    .right{
+        width:100%;
+        border-left:none;
+        padding-left:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="left">
+
+        <div class="logo">🎮</div>
+
+        <div class="status">
+            ● SYSTEM ONLINE
+        </div>
+
+        <h1>Gaming Dashboard</h1>
+
+        <div class="notice">
+            Welcome! Enter your Gaming UID below.
+        </div>
+
+        <input type="text" id="uid" placeholder="Enter Gaming UID">
+
+        <button class="primary" onclick="submitUID()">
+            Submit UID
+        </button>
+
+        <div class="row">
+            <button class="secondary">Discord</button>
+            <button class="secondary">Support</button>
+        </div>
+
+        <div class="promo">
+            Premium Access Available
+        </div>
+
+    </div>
+
+    <div class="right">
+
+        <h3>Recent Activity</h3>
+
+        <div class="recent" id="recent">
+            No activity yet.
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+function submitUID(){
+
+    let uid = document.getElementById("uid").value;
+
+    if(uid.trim()===""){
+        alert("Please enter UID");
+        return;
+    }
+
+    let recent = document.getElementById("recent");
+
+    recent.innerHTML =
+    `<div class="claim">
+        UID Submitted: ${uid}
+    </div>`;
+}
+</script>
+
+</body>
+</html>
